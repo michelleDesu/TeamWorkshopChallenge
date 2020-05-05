@@ -69,4 +69,24 @@ public class CustomersTest {
         assertEquals(expected.getEmail(), actual.getEmail());
 
     }
+
+    @Test
+    public void addCustomer_given_already_existing_values_return_null() {
+        Customer thirdCustomer = customersTest.addCostumer(
+                "Erak",
+                "Sköld",
+                "Erak.ulvbane@test.com"
+        );
+        Customer actual = customersTest.addCostumer(
+                "Erak",
+                "Sköld",
+                "Erak.ulvbane@test.com"
+        );
+
+        assertNull(actual);
+
+
+
+
+    }
 }
