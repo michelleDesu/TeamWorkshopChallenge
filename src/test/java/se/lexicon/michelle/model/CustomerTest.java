@@ -1,4 +1,4 @@
-package se.lexicon.michelle.data;
+package se.lexicon.michelle.model;
 
 import org.junit.Before;
 import org.junit.Test;
