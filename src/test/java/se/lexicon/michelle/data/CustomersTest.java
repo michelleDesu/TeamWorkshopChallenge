@@ -48,4 +48,25 @@ public class CustomersTest {
         Customer[] actual = customersTest.returnAllCustomers();
         assertArrayEquals(expectedArray, actual);
     }
+
+    @Test
+    public void addCustomer_given_correct_values_return_new_customer() {
+        Customer expected = new Customer(
+               3,
+                "Erak",
+                "Sköld",
+                "Erak.ulvbane@test.com"
+                ),
+                actual = customersTest.addCostumer(
+                        "Erak",
+                        "Sköld",
+                        "Erak.ulvbane@test.com"
+                );
+
+        assertEquals(expected.getCustomerID(), actual.getCustomerID());
+        assertEquals(expected.getFirstName(), actual.getFirstName());
+        assertEquals(expected.getLastName(), actual.getLastName());
+        assertEquals(expected.getEmail(), actual.getEmail());
+
+    }
 }
