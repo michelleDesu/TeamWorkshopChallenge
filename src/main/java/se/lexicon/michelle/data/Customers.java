@@ -1,7 +1,7 @@
 package se.lexicon.michelle.data;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import se.lexicon.michelle.model.Customer;
+import se.lexicon.michelle.data.exceptions.*;
 
 import java.util.Arrays;
 
@@ -15,13 +15,10 @@ public class Customers {
         return customers;
     }
 
-    public Customer addCostumer(String firstName, String lastName, String email) {
+    public Customer addCostumer(String firstName, String lastName, String email) throws ExistingEmailException {
         for (Customer customer : customers) {
             if (customer.getEmail().toLowerCase().equals(email.toLowerCase())) {
-                /**
-                 * Todo throw IllegalArgumentException() if email exists
-                 */
-                return null;
+                throw new ExistingEmailException("The specified e-mail does already exist");
             }
         }
         Customer customerToAdd = new Customer(
@@ -45,4 +42,32 @@ public class Customers {
 
         return customerToAdd;
     }
+
+    public Customer findById(int customerId) throws NonExistingId {
+        Customer returnedCustomer = null;
+        for (Customer customer: customers){
+            if(customer.getCustomerID() == customerId){
+                returnedCustomer = customer;
+            }
+        }
+        if (returnedCustomer == null){
+            throw new NonExistingId("The specified ID does not exist");
+        }
+        return returnedCustomer;
+    }
+
+    public Customer findByEmail(String customerEmail) throws NonExistingEmail {
+        Customer returnedCustomer = null;
+        for (Customer customer: customers){
+            if(customer.getEmail().equals(customerEmail)){
+                returnedCustomer = customer;
+            }
+        }
+        if (returnedCustomer == null){
+            throw new NonExistingEmail("The specified email does not exist");
+        }
+        return returnedCustomer;
+    }
+
+
 }

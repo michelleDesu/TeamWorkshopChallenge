@@ -3,6 +3,7 @@ package se.lexicon.michelle.data;
 import org.junit.Before;
 import org.junit.Test;
 import se.lexicon.michelle.model.Customer;
+import se.lexicon.michelle.data.exceptions.*;
 
 import static org.junit.Assert.*;
 
@@ -50,7 +51,7 @@ public class CustomersTest {
     }
 
     @Test
-    public void addCustomer_given_correct_values_return_new_customer() {
+    public void addCustomer_given_correct_values_return_new_customer() throws ExistingEmailException {
         Customer expected = new Customer(
                3,
                 "Erak",
@@ -70,23 +71,55 @@ public class CustomersTest {
 
     }
 
-    @Test
-    public void addCustomer_given_already_existing_values_return_null() {
+    @Test (expected = ExistingEmailException.class)
+    public void addCustomer_given_already_existing_values_return_null() throws ExistingEmailException {
         Customer thirdCustomer = customersTest.addCostumer(
                 "Erak",
                 "Sköld",
                 "Erak.ulvbane@test.com"
         );
-        Customer actual = customersTest.addCostumer(
-                "Erak",
-                "Sköld",
-                "Erak.ulvbane@test.com"
-        );
-
-        assertNull(actual);
-
-
-
+            Customer actual = customersTest.addCostumer(
+                    "Erak",
+                    "Sköld",
+                    "Erak.ulvbane@test.com"
+            );
 
     }
+
+    //find by id
+
+    @Test
+    public void given_id_should_return_customer_with_correct_id() throws NonExistingId{
+        Customer actual = customersTest.findById(1);
+        assertEquals(firstCustomer, actual);
+    }
+
+    @Test (expected = NonExistingId.class)
+    public void given_incorrect_id_should_throw_NonExistingId() throws NonExistingId{
+        Customer actual = customersTest.findById(15);
+        assertEquals(firstCustomer, actual);
+    }
+
+    //find by e-mail
+    @Test
+    public void given_email_should_return_customer_with_correct_id() throws NonExistingEmail {
+        Customer actual = customersTest.findByEmail("saga.helgadotter@test.com");
+        assertEquals(firstCustomer, actual);
+    }
+
+    @Test (expected = NonExistingEmail.class)
+    public void given_nonexisting_email_should_return_NonExistingEmail() throws NonExistingEmail {
+        Customer actual = customersTest.findByEmail("sagan.helgadotter@test.com");
+        assertEquals(firstCustomer, actual);
+    }
+
+
+
+    //remove by id
+
+
+
+    //remove by e-mail
+
+
 }
