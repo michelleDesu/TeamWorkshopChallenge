@@ -8,13 +8,29 @@ import java.util.Arrays;
 public class Customers {
     private static Customer[] customers = new Customer[0];
 
+    /**
+     * clears the entire customers array, mostly for testing usage
+     */
     public void clear() {
         customers = new Customer[0];
     }
+
+    /**
+     * returns all the customers, if the entire list is needed
+     * @return customers array
+     */
     public Customer[] returnAllCustomers(){
         return customers;
     }
 
+    /**
+     * adding a new customer to customers and increases the array so that more items can be added.
+     * @param firstName String
+     * @param lastName String
+     * @param email String
+     * @return Customer the newly created customer.
+     * throws "ExistingEmailException" if email already exists
+     */
     public Customer addCostumer(String firstName, String lastName, String email) throws ExistingEmailException {
         for (Customer customer : customers) {
             if (customer.getEmail().toLowerCase().equals(email.toLowerCase())) {
@@ -27,8 +43,6 @@ public class Customers {
                 lastName,
                 email
         );
-
-
         //creates new customer array, this to be able to make the old one larger
         Customer[] newCustomers = Arrays.copyOf(customers, customers.length +1);
         int offSet = customers.length;
@@ -43,6 +57,12 @@ public class Customers {
         return customerToAdd;
     }
 
+    /**
+     * finds and returns the customer with the specified id
+     * @param customerId int
+     * @return Customer
+     * throws "NonExistingId" if the Id does not exist in array
+     */
     public Customer findById(int customerId) throws NonExistingId {
         Customer returnedCustomer = null;
         for (Customer customer: customers){
@@ -56,6 +76,12 @@ public class Customers {
         return returnedCustomer;
     }
 
+    /**
+     * finds and returns the customer with the specified email
+     * @param customerEmail String
+     * @return Customer
+     * throws "NonExistingEmail" if email not existing in the array.
+     */
     public Customer findByEmail(String customerEmail) throws NonExistingEmail {
         Customer returnedCustomer = null;
         for (Customer customer: customers){
