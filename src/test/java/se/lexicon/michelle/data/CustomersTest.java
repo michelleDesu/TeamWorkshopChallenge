@@ -108,18 +108,78 @@ public class CustomersTest {
     }
 
     @Test (expected = NonExistingEmail.class)
-    public void given_nonexisting_email_should_return_NonExistingEmail() throws NonExistingEmail {
-        Customer actual = customersTest.findByEmail("sagan.helgadotter@test.com");
-        assertEquals(firstCustomer, actual);
+    public void given_nonExisting_email_should_return_NonExistingEmail() throws NonExistingEmail {
+         customersTest.findByEmail("sagan.helgadotter@test.com");
     }
-
 
 
     //remove by id
 
+    @Test
+    public void given_CustomerID_remove_specified_id_return_new_customers_array() throws NonExistingId, ExistingEmailException {
+        String firsName = "Moda",
+                lastName = "Knaphövde",
+                email = "moda.knaphövde@test.com";
+        Customer thirdCustomer = customersTest.addCostumer(firsName,lastName, email);
+
+        Customer[] expected = new Customer[2];
+        expected[0] = firstCustomer;
+        expected[1] = thirdCustomer;
+
+        Customer[] actual = customersTest.removeById(2);
+        assertArrayEquals(expected,actual);
+
+    }
+
+    //throws exception remove id
+    @Test (expected = NonExistingId.class)
+    public void given_CustomerID_remove_specified_id_throws_NonExistingId () throws NonExistingId, ExistingEmailException {
+        String firsName = "Moda",
+                lastName = "Knaphövde",
+                email = "moda.knaphövde@test.com";
+        Customer thirdCustomer = customersTest.addCostumer(firsName,lastName, email);
+
+        Customer[] expected = new Customer[2];
+        expected[0] = firstCustomer;
+        expected[1] = thirdCustomer;
+
+        Customer[] actual = customersTest.removeById(4);
+        assertArrayEquals(expected,actual);
+
+    }
+
 
 
     //remove by e-mail
+    @Test
+    public void given_CustomerEmail_remove_specified_email_return_new_customers_array() throws NonExistingEmail, ExistingEmailException {
+        String firsName = "Moda",
+                lastName = "Knaphövde",
+                email = "moda.knaphövde@test.com";
+        Customer thirdCustomer = customersTest.addCostumer(firsName,lastName, email);
 
+        Customer[] expected = new Customer[2];
+        expected[0] = firstCustomer;
+        expected[1] = thirdCustomer;
 
+        Customer[] actual = customersTest.removeByEmail("Haldur.Rind@test.com");
+        assertArrayEquals(expected,actual);
+
+    }
+
+    //Throws Error
+    @Test (expected = NonExistingEmail.class)
+    public void given_CustomerID_remove_specified_Email_throws_NonExistingEmail () throws NonExistingId, ExistingEmailException, NonExistingEmail {
+        String firsName = "Moda",
+                lastName = "Knaphövde",
+                email = "moda.knaphövde@test.com";
+        Customer thirdCustomer = customersTest.addCostumer(firsName, lastName, email);
+
+        Customer[] expected = new Customer[2];
+        expected[0] = firstCustomer;
+        expected[1] = thirdCustomer;
+
+        Customer[] actual = customersTest.removeByEmail("sHaldur.Rind@test.com");
+        assertArrayEquals(expected, actual);
+    }
 }

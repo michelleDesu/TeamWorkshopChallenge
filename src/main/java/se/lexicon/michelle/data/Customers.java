@@ -96,4 +96,116 @@ public class Customers {
     }
 
 
+    /**
+     * removes the customer with the specified id
+     * @param customerId int
+     * @return customers
+     * @throws "NonExistingId" if id does not exist
+     */
+    public Customer[] removeById(int customerId) throws NonExistingId {
+        Customer [] arrayBeforeCustomerId = new Customer[0],
+                    arrayAfterCustomerId = new Customer[0],
+                    newCustomers;
+
+        //if customer with id does not exist an exception is thrown.
+        //Customer testCustomer = findById(customerId);
+        int idPos;
+
+        /**
+         * fetches the position of the object with the specified id in the array
+         * if it does not exist the posID will be the length of customers array
+         */
+
+        for( idPos = 0 ; idPos < customers.length ; idPos++){
+            if(customers[idPos].getCustomerID() == customerId){
+                break;
+            }
+        }
+        //if the specified id does not exist no object can be removed, exception is thrown
+        if(idPos == customers.length){
+            throw new NonExistingId("The specified ID does not exist");
+        }
+        for(int i = 0; i< idPos; i++){
+            arrayBeforeCustomerId = increaseAndAddArray(arrayBeforeCustomerId,customers[i] );
+        }
+        for (int i = idPos + 1; i < customers.length; i++){
+            arrayAfterCustomerId = increaseAndAddArray(arrayAfterCustomerId, customers[i]);
+        }
+
+        /**
+         * remove the object with the given ID combine the two arrays
+         * arrayBeforeTodoId and arrayAfterTodoId
+         */
+        newCustomers = Arrays.copyOf(
+                arrayBeforeCustomerId,
+                arrayBeforeCustomerId.length + arrayAfterCustomerId.length
+                );
+        System.arraycopy(
+                arrayAfterCustomerId,
+                0,
+                newCustomers,
+                arrayBeforeCustomerId.length,
+                arrayAfterCustomerId.length
+        );
+
+       customers = newCustomers;
+        return customers;
+
+    }
+
+    /**
+     * removes the customer with the specified e-mail
+     * @param customerEmail String
+     * @return customers
+     * @throws "NonExistingEmail" if e-mail does not exist
+     */
+   public Customer[] removeByEmail(String customerEmail) throws NonExistingEmail {
+        Customer[] beforeCustomerEmail = new Customer[0],
+                    afterCustomerEmail = new Customer[0],
+                    newTempCustomers;
+        int eMailPos;
+       /**
+        *  when the correct pos for the email is found break
+        *  this is to know exactly where in customers the object is
+        *
+        */
+        for( eMailPos = 0; eMailPos < customers.length; eMailPos++){
+            if(customers[eMailPos].getEmail().equals(customerEmail)){
+                break;
+            }
+        }
+       /**
+        *  if eMailPos == customers.length throw exception,
+        *  email does not exist in customers.
+        */
+       if (eMailPos == customers.length){
+           throw new NonExistingEmail("The Specified email does not exist");
+       }
+       for (int i = 0; i < eMailPos; i++){
+           beforeCustomerEmail = increaseAndAddArray(beforeCustomerEmail, customers[i]);
+       }
+       for(int i = eMailPos +1 ; i < customers.length; i++){
+           afterCustomerEmail = increaseAndAddArray(afterCustomerEmail, customers[i]);
+       }
+       newTempCustomers = Arrays.copyOf(beforeCustomerEmail,beforeCustomerEmail.length + afterCustomerEmail.length);
+       System.arraycopy(
+               afterCustomerEmail,
+               0,
+               newTempCustomers,
+               beforeCustomerEmail.length,
+               afterCustomerEmail.length
+               );
+       customers = newTempCustomers;
+       return customers;
+   }
+
+
+    private Customer[] increaseAndAddArray(Customer[] toIncreaseArray, Customer customerToAdd){
+
+        toIncreaseArray = Arrays.copyOf(toIncreaseArray, toIncreaseArray.length +1);
+        toIncreaseArray[toIncreaseArray.length -1] = customerToAdd;
+        return toIncreaseArray;
+    }
+
+
 }
