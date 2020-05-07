@@ -1,5 +1,6 @@
 package se.lexicon.michelle.data;
 
+import se.lexicon.michelle.model.BankAccount;
 import se.lexicon.michelle.model.Customer;
 import se.lexicon.michelle.data.exceptions.*;
 
@@ -7,6 +8,14 @@ import java.util.Arrays;
 
 public class Customers {
     private static Customer[] customers = new Customer[0];
+    //private AccountHandler accountHandler= new AccountHandler();
+
+   /* public Customers(AccountHandler accountHandler) {
+        this.accountHandler = accountHandler;
+    }
+
+    */
+
 
     /**
      * clears the entire customers array, mostly for testing usage
@@ -31,7 +40,7 @@ public class Customers {
      * @return Customer the newly created customer.
      * throws "ExistingEmailException" if email already exists
      */
-    public Customer addCostumer(String firstName, String lastName, String email) throws ExistingEmailException {
+    public Customer addCustomer(String firstName, String lastName, String email) throws ExistingEmailException {
         for (Customer customer : customers) {
             if (customer.getEmail().toLowerCase().equals(email.toLowerCase())) {
                 throw new ExistingEmailException("The specified e-mail does already exist");
@@ -56,6 +65,25 @@ public class Customers {
 
         return customerToAdd;
     }
+
+   /*
+    public Customer addCustomer(Customer customer) throws ExistingEmailException, NonExistingId {
+
+
+           BankAccount account = accountHandler.findAccountByCustomerId(customer.getCustomerID());
+
+    }
+    */
+
+    /*public Customer createCustomer(String firstName, String lastName, String email){
+        Customer customerToAdd = new Customer(
+                CustomerSequencer.nextCustomerId(),
+                firstName,
+                lastName,
+                email
+        );
+                return customerToAdd;
+    }*/
 
     /**
      * finds and returns the customer with the specified id

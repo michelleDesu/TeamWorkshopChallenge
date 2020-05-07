@@ -19,12 +19,12 @@ public class CustomersTest {
         CustomerSequencer.resetCustomerId();
 
 
-        firstCustomer = customersTest.addCostumer(
+        firstCustomer = customersTest.addCustomer(
                 "Saga" ,
                 "Helgadotter",
                 "saga.helgadotter@test.com"
         );
-        secondCustomer = customersTest.addCostumer(
+        secondCustomer = customersTest.addCustomer(
                 "Haldur" ,
                 "Rind",
                 "Haldur.Rind@test.com"
@@ -58,7 +58,7 @@ public class CustomersTest {
                 "Sköld",
                 "Erak.ulvbane@test.com"
                 ),
-                actual = customersTest.addCostumer(
+                actual = customersTest.addCustomer(
                         "Erak",
                         "Sköld",
                         "Erak.ulvbane@test.com"
@@ -73,12 +73,12 @@ public class CustomersTest {
 
     @Test (expected = ExistingEmailException.class)
     public void addCustomer_given_already_existing_values_return_null() throws ExistingEmailException {
-        Customer thirdCustomer = customersTest.addCostumer(
+        Customer thirdCustomer = customersTest.addCustomer(
                 "Erak",
                 "Sköld",
                 "Erak.ulvbane@test.com"
         );
-            Customer actual = customersTest.addCostumer(
+            Customer actual = customersTest.addCustomer(
                     "Erak",
                     "Sköld",
                     "Erak.ulvbane@test.com"
@@ -120,7 +120,7 @@ public class CustomersTest {
         String firsName = "Moda",
                 lastName = "Knaphövde",
                 email = "moda.knaphövde@test.com";
-        Customer thirdCustomer = customersTest.addCostumer(firsName,lastName, email);
+        Customer thirdCustomer = customersTest.addCustomer(firsName,lastName, email);
 
         Customer[] expected = new Customer[2];
         expected[0] = firstCustomer;
@@ -137,7 +137,7 @@ public class CustomersTest {
         String firsName = "Moda",
                 lastName = "Knaphövde",
                 email = "moda.knaphövde@test.com";
-        Customer thirdCustomer = customersTest.addCostumer(firsName,lastName, email);
+        Customer thirdCustomer = customersTest.addCustomer(firsName,lastName, email);
 
         Customer[] expected = new Customer[2];
         expected[0] = firstCustomer;
@@ -156,7 +156,7 @@ public class CustomersTest {
         String firsName = "Moda",
                 lastName = "Knaphövde",
                 email = "moda.knaphövde@test.com";
-        Customer thirdCustomer = customersTest.addCostumer(firsName,lastName, email);
+        Customer thirdCustomer = customersTest.addCustomer(firsName,lastName, email);
 
         Customer[] expected = new Customer[2];
         expected[0] = firstCustomer;
@@ -173,7 +173,7 @@ public class CustomersTest {
         String firsName = "Moda",
                 lastName = "Knaphövde",
                 email = "moda.knaphövde@test.com";
-        Customer thirdCustomer = customersTest.addCostumer(firsName, lastName, email);
+        Customer thirdCustomer = customersTest.addCustomer(firsName, lastName, email);
 
         Customer[] expected = new Customer[2];
         expected[0] = firstCustomer;
