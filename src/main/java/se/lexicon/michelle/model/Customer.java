@@ -20,6 +20,7 @@ public class Customer {
         setLastName(lastName);
     }
 
+
     /**
      * getters
      */
